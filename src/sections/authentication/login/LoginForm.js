@@ -10,7 +10,11 @@ import {
   TextField,
   IconButton,
   InputAdornment,
-  FormControlLabel
+  FormControlLabel,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // component
@@ -24,7 +28,8 @@ export default function LoginForm() {
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    password: Yup.string().required('Password is required')
+    password: Yup.string().required('Password is required'),
+    fullName: Yup.string().required('Full name is required')
   });
 
   const formik = useFormik({
@@ -51,7 +56,17 @@ export default function LoginForm() {
         <Stack spacing={3}>
           <TextField
             fullWidth
-            autoComplete="username"
+            autoComplete="fullName"
+            type="text"
+            label="Full name"
+            {...getFieldProps('fullName')}
+            error={Boolean(touched.fullName && errors.fullName)}
+            helperText={touched.fullName && errors.fullName}
+          />
+
+          <TextField
+            fullWidth
+            autoComplete="email"
             type="email"
             label="Email address"
             {...getFieldProps('email')}
@@ -59,36 +74,34 @@ export default function LoginForm() {
             helperText={touched.email && errors.email}
           />
 
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Interested in</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              // value={age}
+              label="Interested in"
+              // onChange={handleChange}
+              {...getFieldProps('interestedIn')}
+            >
+              <MenuItem value="Internship">Internship</MenuItem>
+              <MenuItem value="Work">Work</MenuItem>
+              <MenuItem value="Front-end academy">Front-end academy</MenuItem>
+            </Select>
+          </FormControl>
+
           <TextField
             fullWidth
-            autoComplete="current-password"
-            type={showPassword ? 'text' : 'password'}
-            label="Password"
-            {...getFieldProps('password')}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={handleShowPassword} edge="end">
-                    <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
-                  </IconButton>
-                </InputAdornment>
-              )
-            }}
-            error={Boolean(touched.password && errors.password)}
-            helperText={touched.password && errors.password}
+            autoComplete="notes"
+            type="email"
+            label="Notes"
+            {...getFieldProps('notes')}
+            error={Boolean(touched.notes && errors.notes)}
+            helperText={touched.notes && errors.notes}
           />
         </Stack>
 
-        <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-          <FormControlLabel
-            control={<Checkbox {...getFieldProps('remember')} checked={values.remember} />}
-            label="Remember me"
-          />
-
-          <Link component={RouterLink} variant="subtitle2" to="#" underline="hover">
-            Forgot password?
-          </Link>
-        </Stack>
+        <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }} />
 
         <LoadingButton
           fullWidth
@@ -97,7 +110,7 @@ export default function LoginForm() {
           variant="contained"
           loading={isSubmitting}
         >
-          Login
+          Submit
         </LoadingButton>
       </Form>
     </FormikProvider>
