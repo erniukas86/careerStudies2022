@@ -1,14 +1,24 @@
 import * as Yup from 'yup';
 import { useFormik, Form, FormikProvider } from 'formik';
 // material
-import { Stack, TextField, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import {
+  Stack,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Snackbar
+} from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // component
 import { db } from 'codemash';
+import { useState } from 'react';
 
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
+  const [errorSummary, setErrorSummary] = useState();
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     full_name: Yup.string().required('Full name is required'),
@@ -23,8 +33,9 @@ export default function LoginForm() {
         document: values
       });
       resetForm();
+      setErrorSummary('GREAT SUCCESS!');
     } catch (error) {
-      alert('OOPS :( Something went wrong');
+      setErrorSummary('OOPS :( Something went wrong');
     }
   };
 
@@ -105,6 +116,12 @@ export default function LoginForm() {
           Submit
         </LoadingButton>
       </Form>
+      <Snackbar
+        open={errorSummary}
+        onClose={setErrorSummary}
+        autoHideDuration={6000}
+        message={errorSummary}
+      />
     </FormikProvider>
   );
 }
