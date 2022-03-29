@@ -3237,6 +3237,14 @@
     "chalk" "^2.4.1"
     "q" "^1.1.2"
 
+"codemash@^1.16.0":
+  "integrity" "sha512-nY7A6uWPBkZyWhvMcFtiGmf2fhYvdxiR0ix/PyjXUU11EYbfcDUq0QCI0o7144suwlaiSRlwbZOsb2AU3HXhIg=="
+  "resolved" "https://registry.npmjs.org/codemash/-/codemash-1.16.0.tgz"
+  "version" "1.16.0"
+  dependencies:
+    "husky" "^5.1.1"
+    "node-fetch" "^2.6.1"
+
 "collect-v8-coverage@^1.0.0":
   "integrity" "sha512-iBPtljfCNcTKNAto0KEtDfZ3qzjJvqE3aTGZsbhjSBlorqpXJlaWWtPO35D+ZImoC3KWejX64o+yPGxhWSTzfg=="
   "resolved" "https://registry.npmjs.org/collect-v8-coverage/-/collect-v8-coverage-1.0.1.tgz"
@@ -5181,6 +5189,11 @@
   "resolved" "https://registry.npmjs.org/human-signals/-/human-signals-2.1.0.tgz"
   "version" "2.1.0"
 
+"husky@^5.1.1":
+  "integrity" "sha512-AM8T/auHXRBxlrfPVLKP6jt49GCM2Zz47m8G3FOMsLmTv8Dj/fKVWE0Rh2d4Qrvmy131xEsdQnb3OXRib67PGg=="
+  "resolved" "https://registry.npmjs.org/husky/-/husky-5.2.0.tgz"
+  "version" "5.2.0"
+
 "iconv-lite@^0.6.3":
   "integrity" "sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw=="
   "resolved" "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.6.3.tgz"
@@ -6488,7 +6501,7 @@
     "lower-case" "^2.0.2"
     "tslib" "^2.0.3"
 
-"node-fetch@2.6.7":
+"node-fetch@^2.6.1", "node-fetch@2.6.7":
   "integrity" "sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ=="
   "resolved" "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.7.tgz"
   "version" "2.6.7"

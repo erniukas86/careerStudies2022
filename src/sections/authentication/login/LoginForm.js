@@ -1,67 +1,58 @@
 import * as Yup from 'yup';
-import { useState } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useFormik, Form, FormikProvider } from 'formik';
 // material
-import {
-  Link,
-  Stack,
-  Checkbox,
-  TextField,
-  IconButton,
-  InputAdornment,
-  FormControlLabel,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem
-} from '@mui/material';
+import { Stack, TextField, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // component
-import Iconify from '../../../components/Iconify';
+import { db } from 'codemash';
 
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
-  const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
-
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    password: Yup.string().required('Password is required'),
-    fullName: Yup.string().required('Full name is required')
+    full_name: Yup.string().required('Full name is required'),
+    interested_in: Yup.string(),
+    notes: Yup.string()
   });
+
+  const submit = async (values, { resetForm }) => {
+    try {
+      await db.insertRecord({
+        collectionName: 'carrerStudies2022',
+        document: values
+      });
+      resetForm();
+    } catch (error) {
+      alert('OOPS :( Something went wrong');
+    }
+  };
 
   const formik = useFormik({
     initialValues: {
       email: '',
-      password: '',
-      remember: true
+      full_name: '',
+      interested_in: 'Internship',
+      notes: ''
     },
     validationSchema: LoginSchema,
-    onSubmit: () => {
-      navigate('/dashboard', { replace: true });
-    }
+    onSubmit: submit
   });
 
   const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps } = formik;
 
-  const handleShowPassword = () => {
-    setShowPassword((show) => !show);
-  };
-
   return (
     <FormikProvider value={formik}>
-      <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
+      <Form autoComplete="off" onSubmit={handleSubmit}>
         <Stack spacing={3}>
           <TextField
             fullWidth
-            autoComplete="fullName"
+            autoComplete="full_name"
             type="text"
             label="Full name"
-            {...getFieldProps('fullName')}
-            error={Boolean(touched.fullName && errors.fullName)}
-            helperText={touched.fullName && errors.fullName}
+            {...getFieldProps('full_name')}
+            error={Boolean(touched.full_name && errors.full_name)}
+            helperText={touched.full_name && errors.full_name}
           />
 
           <TextField
@@ -79,10 +70,10 @@ export default function LoginForm() {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              // value={age}
               label="Interested in"
-              // onChange={handleChange}
-              {...getFieldProps('interestedIn')}
+              {...getFieldProps('interested_in')}
+              error={Boolean(touched.interested_in && errors.interested_in)}
+              helperText={touched.interested_in && errors.interested_in}
             >
               <MenuItem value="Internship">Internship</MenuItem>
               <MenuItem value="Work">Work</MenuItem>
@@ -93,7 +84,7 @@ export default function LoginForm() {
           <TextField
             fullWidth
             autoComplete="notes"
-            type="email"
+            type="text"
             label="Notes"
             {...getFieldProps('notes')}
             error={Boolean(touched.notes && errors.notes)}
@@ -109,6 +100,7 @@ export default function LoginForm() {
           type="submit"
           variant="contained"
           loading={isSubmitting}
+          onClick={handleSubmit}
         >
           Submit
         </LoadingButton>
