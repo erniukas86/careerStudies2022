@@ -51,7 +51,7 @@ export default function Login() {
       <Container maxWidth="sm">
         <ContentStyle>
           <Stack sx={{ mb: 5 }}>
-            <Typography sx={{ color: 'text.secondary' }}>Start your carrer with</Typography>
+            <Typography sx={{ color: 'text.secondary' }}>Start your career with</Typography>
             <Typography variant="h4" gutterBottom>
               PRESENT CONNECTION
             </Typography>
