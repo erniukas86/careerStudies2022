@@ -88,7 +88,7 @@ export default function LoginForm() {
             >
               <MenuItem value="Internship">Internship</MenuItem>
               <MenuItem value="Work">Work</MenuItem>
-              <MenuItem value="Front-end academy">Front-end academy</MenuItem>
+              <MenuItem value="Front-end academy">Full-stack academy</MenuItem>
             </Select>
           </FormControl>
 
